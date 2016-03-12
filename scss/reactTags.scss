@@ -1,0 +1,165 @@
+@import "./select.scss";
+@import "./mixins.scss";
+
+/* Example Styles for React Tags*/
+.ReactTags__tags{
+  position: relative;
+
+  // preferred box model
+  &,
+  & div,
+  & input,
+  & span {
+    @include box-sizing(border-box);
+  }
+
+  // handle disabled state
+  &.is-disabled > .Select-control {
+    background-color: $select-input-bg-disabled;
+    &:hover {
+      box-shadow: none;
+    }
+  }
+  &.is-disabled .Select-arrow-zone {
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+/* Styles for the input */
+.ReactTags__tagInput {
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.ReactTags__tagInput input {
+  background: none transparent;
+  border: 0 none;
+  box-shadow: none;
+  cursor: default;
+  display: inline-block;
+  font-family: inherit;
+  font-size: inherit;
+  height: $select-input-internal-height;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  -webkit-appearance: none;
+
+  .is-focused & {
+    cursor: text;
+  }
+}
+
+/* Styles for selected tags */
+.ReactTags__selected {
+  background-color: $select-input-bg;
+  border-color: lighten($select-input-border-color, 5%) $select-input-border-color darken($select-input-border-color, 10%);
+  border-radius: $select-input-border-radius;
+  border: $select-input-border-width solid $select-input-border-color;
+  color: $select-text-color;
+  cursor: default;
+  display: table;
+  border-spacing: 0;
+  border-collapse: separate;
+  height: $select-input-height;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+.ReactTags__selected span.ReactTags__tag {
+  background-color: rgba(0, 126, 255, 0.08);
+  border-radius: 2px;
+  border: 1px solid rgba(0, 126, 255, 0.24);
+  color: #007eff;
+  display: inline-block;
+  font-size: 0.9em;
+  line-height: 1.4;
+  margin-left: 5px;
+  margin-top: 5px;
+  vertical-align: top;
+
+  .ReactTags-label{
+    display: inline-block;
+    vertical-align: middle;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+    cursor: default;
+    padding: 2px 5px;
+  }
+}
+.ReactTags__selected a.ReactTags__remove {
+  display: inline-block;
+  vertical-align: middle;
+
+  cursor: pointer;
+  @include border-left-radius( $select-item-border-radius );
+  border-right: 1px solid $select-item-border-color;
+  // move the baseline up by 1px
+  padding: ($select-item-padding-vertical - 1) $select-item-padding-horizontal ($select-item-padding-vertical + 1);
+
+  &:hover,
+  &:focus {
+    background-color: $select-item-hover-bg;
+    color: $select-item-hover-color;
+  }
+  &:active {
+    background-color: $select-item-border-color;
+  }
+}
+
+/* Styles for suggestions */
+.ReactTags__suggestions-outer {
+  @include border-bottom-radius( $select-input-border-radius );
+  background-color: $select-input-bg;
+  border: 1px solid $select-input-border-color;
+  border-top-color: mix($select-input-bg, $select-input-border-color, 50%);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  margin-top: -1px;
+  max-height: $select-menu-max-height;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  z-index: $select-menu-zindex;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ReactTags__suggestions {
+  max-height: ($select-menu-max-height - 2px);
+  overflow-y: auto;
+}
+
+.ReactTags__suggestions ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.ReactTags__suggestions li {
+  box-sizing: border-box;
+  background-color: $select-option-bg;
+  color: $select-option-color;
+  cursor: pointer;
+  display: block;
+  padding: $select-padding-vertical $select-padding-horizontal;
+
+  &:last-child {
+    @include border-bottom-radius( $select-input-border-radius );
+  }
+
+  &.is-focused, &.active {
+    background-color: $select-option-focused-bg;
+    color: $select-option-focused-color;
+  }
+
+  &.is-disabled {
+    color: $select-option-disabled-color;
+    cursor: default;
+  }
+}
+.ReactTags__suggestions li mark {
+  text-decoration: underline;
+  background: none;
+  font-weight: 600;
+}
