@@ -20,13 +20,14 @@ module.exports = {
       },
       {
         test: /\.s?css$/,
-        loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass!postcss')
+        loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass!postcss?parser=postcss-scss') //parser=postcss-scss to overcome uknown word '//' error
       }
     ]
   },
   postcss: function postcss() {
     return [
-      postcssImport({ addDependencyTo: webpack }), // Must be first item in list
+      postcssImport({ addDependencyTo: webpack }), // Must be first item in list,
+      require('postcss-discard-comments'),
       autoprefixer
     ];
   }
